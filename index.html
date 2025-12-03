@@ -3,302 +3,1943 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Play Mob Wars: La Cosa Nostra online - Join the mafia world, build your criminal empire, and become the ultimate mob boss in this thrilling strategy game!">
-    <meta name="keywords" content="Mob Wars, La Cosa Nostra, online mafia game, crime strategy game, build criminal empire">
-    <title>Play Mob Wars: La Cosa Nostra | Free Online Mafia Game | Funnymudpy</title>
-    <link rel="canonical" href="https://funnymudpy.com/" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Funny Mud Py - Play 9 Hilarious Casual Games Online</title>
+    <meta name="description" content="Experience the funniest collection of 9 free casual games including 2048, Tetris, Snake, and more. All games feature hilarious sound effects for endless entertainment!">
+    <meta name="keywords" content="casual games, 2048 game, online games, free games, tetris, snake, puzzle games, funny games">
+    <link rel="canonical" href="https://funnymudpy.com/">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --apple-blue: #0071e3;
-            --apple-gray: #f5f5f7;
-            --apple-dark: #1d1d1f;
-            --apple-light: #ffffff;
+            --apple-blue: #007AFF;
+            --apple-gray: #8E8E93;
+            --apple-light-gray: #F2F2F7;
+            --apple-dark-gray: #1C1C1E;
+            --apple-green: #34C759;
+            --apple-orange: #FF9500;
+            --apple-red: #FF3B30;
+            --apple-purple: #AF52DE;
+            --apple-pink: #FF2D92;
+            --apple-yellow: #FFCC00;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: var(--apple-gray);
-            color: var(--apple-dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
-        
-        .header {
-            background-color: var(--apple-dark);
-            color: var(--apple-light);
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-        
-        .primary-btn {
-            background-color: var(--apple-blue);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        .primary-btn:hover {
-            background-color: #0062c3;
-            transform: scale(1.02);
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            background: rgba(255, 255, 255, 1);
         }
-        
-        .game-container {
-            background-color: var(--apple-light);
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-        
-        .responsive-iframe {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 75%;
-            overflow: hidden;
-        }
-        
-        .responsive-iframe iframe {
-            position: absolute;
+
+        .game-modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
         }
-        
+
+        .game-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 95vw;
+            max-height: 95vh;
+            overflow: auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: var(--apple-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.1);
+            background: #d12b20;
+        }
+
+        /* 2048 Game Styles */
+        .game-2048 {
+            display: grid;
+            grid-template-columns: repeat(4, 80px);
+            grid-gap: 8px;
+            background: #bbada0;
+            padding: 8px;
+            border-radius: 8px;
+            margin: 20px auto;
+            width: fit-content;
+        }
+
+        .tile-2048 {
+            width: 80px;
+            height: 80px;
+            background: #cdc1b4;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #776e65;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .tile-2 { background: #eee4da; color: #776e65; }
+        .tile-4 { background: #ede0c8; color: #776e65; }
+        .tile-8 { background: #f2b179; color: #f9f6f2; }
+        .tile-16 { background: #f59563; color: #f9f6f2; }
+        .tile-32 { background: #f67c5f; color: #f9f6f2; }
+        .tile-64 { background: #f65e3b; color: #f9f6f2; }
+        .tile-128 { background: #edcf72; color: #f9f6f2; font-size: 28px; }
+        .tile-256 { background: #edcc61; color: #f9f6f2; font-size: 28px; }
+        .tile-512 { background: #edc850; color: #f9f6f2; font-size: 28px; }
+        .tile-1024 { background: #edc53f; color: #f9f6f2; font-size: 24px; }
+        .tile-2048 { background: #edc22e; color: #f9f6f2; font-size: 24px; }
+
+        /* Tetris Styles */
+        .tetris-game {
+            width: 300px;
+            height: 600px;
+            background: #2a2a2a;
+            border: 2px solid #444;
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .tetris-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(20, 1fr);
+            width: 100%;
+            height: 100%;
+        }
+
+        .tetris-block {
+            border: 1px solid #444;
+        }
+
+        /* Snake Game Styles */
+        .snake-game {
+            width: 400px;
+            height: 400px;
+            background: #111;
+            border: 2px solid #444;
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .snake-cell {
+            position: absolute;
+            transition: all 0.1s;
+        }
+
+        /* Memory Game Styles */
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 80px);
+            grid-gap: 10px;
+            margin: 20px auto;
+            width: fit-content;
+        }
+
+        .memory-card {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--apple-blue), var(--apple-purple));
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            color: white;
+            transition: all 0.3s;
+            transform-style: preserve-3d;
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            background: var(--apple-green);
+            transform: scale(0.9);
+            opacity: 0.7;
+        }
+
+        /* Tic Tac Toe Styles */
+        .tic-tac-toe {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin: 20px auto;
+            width: fit-content;
+        }
+
+        .tic-tac-toe-cell {
+            width: 100px;
+            height: 100px;
+            background: var(--apple-light-gray);
+            border: 2px solid var(--apple-gray);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .tic-tac-toe-cell:hover {
+            background: var(--apple-blue);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Flappy Bird Styles */
+        .flappy-game {
+            width: 400px;
+            height: 600px;
+            background: linear-gradient(to bottom, #87CEEB, #98FB98);
+            border: 2px solid #444;
+            position: relative;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .flappy-bird {
+            width: 34px;
+            height: 24px;
+            background: var(--apple-yellow);
+            border-radius: 50%;
+            position: absolute;
+            left: 100px;
+        }
+
+        .flappy-pipe {
+            width: 60px;
+            background: var(--apple-green);
+            position: absolute;
+        }
+
+        /* Pong Styles */
+        .pong-game {
+            width: 600px;
+            height: 400px;
+            background: #000;
+            border: 2px solid var(--apple-blue);
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .pong-paddle {
+            width: 15px;
+            height: 80px;
+            background: white;
+            position: absolute;
+        }
+
+        .pong-ball {
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        /* Dino Game Styles */
+        .dino-game {
+            width: 600px;
+            height: 200px;
+            background: linear-gradient(to bottom, #87CEEB, #f0f0f0);
+            border: 2px solid #444;
+            position: relative;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .dino {
+            width: 40px;
+            height: 50px;
+            background: var(--apple-green);
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+        }
+
+        .dino-cactus {
+            width: 30px;
+            height: 40px;
+            background: var(--apple-orange);
+            position: absolute;
+            bottom: 0;
+        }
+
+        /* Whack-a-Mole Styles */
+        .whack-game {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 20px;
+            margin: 20px auto;
+            width: fit-content;
+        }
+
+        .whack-hole {
+            width: 100px;
+            height: 100px;
+            background: #8B4513;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .whack-mole {
+            width: 60px;
+            height: 60px;
+            background: var(--apple-purple);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .whack-mole.active {
+            display: block;
+            animation: pop-up 0.3s ease-out;
+        }
+
+        @keyframes pop-up {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .responsive-iframe {
-                padding-bottom: 100%;
+            .game-2048 {
+                grid-template-columns: repeat(4, 60px);
+            }
+
+            .tile-2048 {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .memory-game {
+                grid-template-columns: repeat(4, 60px);
+            }
+
+            .memory-card {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .tic-tac-toe-cell {
+                width: 80px;
+                height: 80px;
+                font-size: 28px;
+            }
+
+            .snake-game, .flappy-game {
+                width: 300px;
+                height: 300px;
+            }
+
+            .pong-game {
+                width: 350px;
+                height: 250px;
+            }
+
+            .dino-game {
+                width: 350px;
+                height: 150px;
             }
         }
-        
-        .section-description {
-            color: var(--apple-dark);
-            opacity: 0.85;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        
-        .feature-badge {
-            background-color: rgba(0, 113, 227, 0.1);
-            color: var(--apple-blue);
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            display: inline-block;
-            margin-bottom: 1rem;
+
+        @media (max-width: 480px) {
+            .game-2048 {
+                grid-template-columns: repeat(4, 50px);
+            }
+
+            .tile-2048 {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .memory-game {
+                grid-template-columns: repeat(4, 50px);
+            }
+
+            .memory-card {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .tic-tac-toe-cell {
+                width: 70px;
+                height: 70px;
+                font-size: 24px;
+            }
+
+            .snake-game, .flappy-game {
+                width: 250px;
+                height: 250px;
+            }
+
+            .pong-game {
+                width: 300px;
+                height: 200px;
+            }
+
+            .dino-game {
+                width: 280px;
+                height: 120px;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="header py-6 px-4 md:px-8">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold">Funnymudpy</a>
-            <nav>
-                <ul class="flex space-x-6">
-                    <li><a href="#" class="hover:text-gray-300">Home</a></li>
-                    <li><a href="#" class="hover:text-gray-300">Games</a></li>
-                    <li><a href="#" class="hover:text-gray-300">About</a></li>
-                </ul>
-            </nav>
+    <!-- Header -->
+    <header class="glass-morphism text-white py-6 px-4 shadow-lg">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 animate-pulse">🎮 Funny Mud Py 🎮</h1>
+            <p class="text-lg md:text-xl opacity-90">Where casual gaming meets hilarious sound effects!</p>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 md:py-12">
-        <section class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Mob Wars: La Cosa Nostra</h1>
-            <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">Build your criminal empire, recruit your mafia family, and become the most feared mob boss in this thrilling online strategy game!</p>
-            <a href="#play" class="primary-btn inline-block mt-6">Play Now</a>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Choose Your Game Adventure</h2>
+            <p class="text-white text-opacity-90 max-w-2xl mx-auto">
+                Dive into our collection of 9 free casual games! Each game features our signature fart sound effects for maximum entertainment. Perfect for quick breaks and endless fun!
+            </p>
         </section>
 
-        <section id="play" class="game-container p-4 md:p-6 mb-12">
-            <span class="feature-badge">Free Online Game</span>
-            <h2 class="text-2xl font-bold mb-4">Play Mob Wars Online</h2>
-            <p class="section-description">Experience the thrill of building your criminal empire right in your browser. Mob Wars: La Cosa Nostra is completely free to play and requires no downloads. The game runs smoothly on both desktop and mobile devices, allowing you to manage your mafia family from anywhere. Simply click play below to start your journey to becoming the ultimate mob boss!</p>
-            <div class="responsive-iframe">
-                <iframe src="https://www.kongregate.com/games/kanoapps/mob-wars-la-cosa-nostra" allowfullscreen="true" scrolling="no" title="Mob Wars: La Cosa Nostra"></iframe>
-            </div>
-        </section>
-
-        <section class="grid md:grid-cols-2 gap-8 mb-12">
-            <div class="game-container p-6">
-                <span class="feature-badge">Game Highlights</span>
-                <h2 class="text-2xl font-bold mb-4">Game Features</h2>
-                <p class="section-description">Mob Wars: La Cosa Nostra offers a rich, immersive gameplay experience with numerous features designed to keep you engaged for hours. From strategic decision-making to competitive PvP combat, the game provides multiple ways to build and expand your criminal enterprise. Here are some of the standout features that make Mob Wars an addictive gaming experience:</p>
-                <ul class="space-y-2">
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        <span>Build and customize your criminal empire</span>
-                    </li>
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        <span>Recruit other players to join your mafia family</span>
-                    </li>
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        <span>Complete missions and criminal activities</span>
-                    </li>
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        <span>Engage in strategic combat with other players</span>
-                    </li>
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        <span>Climb the ranks from Thug to Godfather</span>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="game-container p-6">
-                <span class="feature-badge">Game Overview</span>
-                <h2 class="text-2xl font-bold mb-4">About Mob Wars</h2>
-                <p class="mb-4">Mob Wars: La Cosa Nostra is a popular online strategy game where players enter the criminal underworld and work their way to the top of the mafia hierarchy. Starting as a small-time crook, you'll engage in various criminal activities, purchase properties, recruit mobsters, and battle rival gangs.</p>
-                <p class="mb-4">The game combines elements of strategy, role-playing, and social interaction as you form alliances with other players to strengthen your position in the criminal world. With regular updates and new content, Mob Wars offers hours of engaging gameplay for fans of mafia-themed strategy games.</p>
-                <p>Developed by KanoApps, Mob Wars has attracted millions of players worldwide since its launch. The game's success stems from its engaging progression system, competitive gameplay mechanics, and regular content updates that keep the game fresh and exciting. Whether you play for a few minutes each day or dedicate hours to building your criminal enterprise, Mob Wars provides an immersive experience that rewards strategic thinking and persistent gameplay.</p>
-            </div>
-        </section>
-
-        <section class="game-container p-6 mb-12">
-            <span class="feature-badge">Gameplay Guide</span>
-            <h2 class="text-2xl font-bold mb-4">How to Play</h2>
-            <p class="section-description">Getting started in Mob Wars: La Cosa Nostra is simple, but mastering the game requires strategy and dedication. This beginner-friendly guide will help you understand the basics and set you on the path to becoming a feared mob boss. The game balances resource management, strategic combat, and social interaction to create a challenging yet rewarding experience for players of all skill levels.</p>
-            <div class="grid md:grid-cols-3 gap-6">
+        <!-- Games Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <!-- 2048 Game -->
+            <div class="game-card rounded-2xl p-6 shadow-xl cursor-pointer" onclick="openGame('2048')">
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-apple-blue rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">1</div>
-                    <h3 class="font-bold mb-2">Create Your Character</h3>
-                    <p>Choose your name and begin your criminal journey through the underworld. Your character starts with limited resources and influence, but through smart decisions and strategic actions, you'll gradually build your reputation in the criminal world. Complete the tutorial missions to learn the basic mechanics and earn your first rewards.</p>
+                    <div class="text-6xl mb-4">🔢</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">2048</h3>
+                    <p class="text-gray-600 mb-4">Combine tiles to reach 2048!</p>
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-full inline-block font-semibold">
+                        Play Now 🎯
+                    </div>
                 </div>
+            </div>
+
+            <!-- Tetris Game -->
+            <div class="game-card rounded-2xl p-6 shadow-xl cursor-pointer" onclick="openGame('tetris')">
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-apple-blue rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">2</div>
-                    <h3 class="font-bold mb-2">Build Your Empire</h3>
-                    <p>Complete jobs, invest in properties, and recruit other mobsters to join your family. Efficient resource management is key to success. Jobs provide income and experience, while properties generate passive income over time. Recruiting skilled mobsters strengthens your family and increases your chances of success in combat. Balance your investments to maximize growth.</p>
+                    <div class="text-6xl mb-4">🧱</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Tetris</h3>
+                    <p class="text-gray-600 mb-4">Classic block-stacking fun!</p>
+                    <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white py-2 px-4 rounded-full inline-block font-semibold">
+                        Play Now 🎮
+                    </div>
                 </div>
+            </div>
+
+            <!-- Snake Game -->
+            <div class="game-card rounded-2xl p-6 shadow-xl cursor-pointer" onclick="openGame('snake')">
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-apple-blue rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">3</div>
-                    <h3 class="font-bold mb-2">Dominate the Competition</h3>
-                    <p>Battle rival gangs, form alliances, and rise to become the most powerful mob boss. Combat requires strategic thinking - choose your targets carefully and upgrade your weapons and defense items to improve your chances of victory. Joining or forming a mafia family with other players provides additional benefits and protection. Participate in special events to earn rare items and currencies.</p>
+                    <div class="text-6xl mb-4">🐍</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Snake</h3>
+                    <p class="text-gray-600 mb-4">Guide the snake to food!</p>
+                    <div class="bg-gradient-to-r from-green-500 to-lime-500 text-white py-2 px-4 rounded-full inline-block font-semibold">
+                        Play Now 🐛
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Game -->
+            <div class="game-card rounded-2xl p-6 shadow-xl cursor-pointer" onclick="openGame('memory')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">🧠</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Memory Match</h3>
+                    <p class="text-gray-600 mb-4">Test your memory skills!</p>
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 px-4 rounded-full inline-block font-semibold">
+                        Play Now 💭
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tic Tac Toe -->
+            <div class="game-card rounded-2xl p-6 shadow-xl cursor-pointer" onclick="openGame('tictactoe')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">⭕</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Tic Tac Toe</h3>
+                    <p class="text-gray-600 mb-4">Classic strategy game!</p>
+                    <div class="bg-gradient-to-r from-red-500 to-orange-500 text-white py-2 px-4 rounded-full inline-block font-semibold">
+                        Play Now ⭕❌
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flappy Bird -->
+            <div class="game-card rounded-2xl p-6 shadow-xl cursor-pointer" onclick="openGame('flappy')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">🐦</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Flappy Bird</h3>
+                    <p class="text-gray-600 mb-4">Navigate through pipes!</p>
+                    <div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-2 px-4 rounded-full inline-block font-semibold">
+                        Play Now 🚀
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pong -->
+            <div class="game-card rounded-2xl p-6 shadow-xl cursor-pointer" onclick="openGame('pong')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">🏓</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Pong</h3>
+                    <p class="text-gray-600 mb-4">Classic arcade tennis!</p>
+                    <div class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-2 px-4 rounded-full inline-block font-semibold">
+                        Play Now 🎾
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dino Game -->
+            <div class="game-card rounded-2xl p-6 shadow-xl cursor-pointer" onclick="openGame('dino')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">🦕</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Dino Jump</h3>
+                    <p class="text-gray-600 mb-4">Jump over obstacles!</p>
+                    <div class="bg-gradient-to-r from-green-500 to-emerald-500 text-white py-2 px-4 rounded-full inline-block font-semibold">
+                        Play Now 🏃
+                    </div>
+                </div>
+            </div>
+
+            <!-- Whack-a-Mole -->
+            <div class="game-card rounded-2xl p-6 shadow-xl cursor-pointer" onclick="openGame('whack')">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">🔨</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Whack-a-Mole</h3>
+                    <p class="text-gray-600 mb-4">Hit the moles quickly!</p>
+                    <div class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-2 px-4 rounded-full inline-block font-semibold">
+                        Play Now 🔨
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="game-container p-6">
-            <span class="feature-badge">Community Feedback</span>
-            <h2 class="text-2xl font-bold mb-4">Player Reviews</h2>
-            <p class="section-description">Don't just take our word for it - Mob Wars: La Cosa Nostra has earned praise from players worldwide for its engaging gameplay, strategic depth, and active community. Here's what some veteran players have to say about their experience with the game. These authentic reviews highlight what makes Mob Wars a standout title in the online strategy game genre.</p>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="border-l-4 border-apple-blue pl-4">
-                    <p class="italic mb-2">"Mob Wars is incredibly addictive! I've been playing for months and still find new strategies to improve my empire. The community is also very welcoming to new players."</p>
-                    <p class="font-bold">- Michael R.</p>
-                    <p class="text-sm text-gray-600">Playing since 2020 • 4.5/5 rating</p>
+        <!-- Features Section -->
+        <section class="mt-16 text-center">
+            <h2 class="text-3xl font-bold text-white mb-8">Why Choose Funny Mud Py?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="glass-morphism rounded-xl p-6 text-white">
+                    <div class="text-4xl mb-4">🆓</div>
+                    <h3 class="text-xl font-bold mb-2">Completely Free</h3>
+                    <p>All games are free to play with no downloads required</p>
                 </div>
-                <div class="border-l-4 border-apple-blue pl-4">
-                    <p class="italic mb-2">"The strategic depth of this game is impressive. It's not just about brute force but also smart alliances and resource management. Definitely worth playing!"</p>
-                    <p class="font-bold">- Sophia C.</p>
-                    <p class="text-sm text-gray-600">Playing since 2021 • 5/5 rating</p>
+                <div class="glass-morphism rounded-xl p-6 text-white">
+                    <div class="text-4xl mb-4">💨</div>
+                    <h3 class="text-xl font-bold mb-2">Hilarious Sounds</h3>
+                    <p>Every action accompanied by our signature fart sound effects!</p>
                 </div>
-            </div>
-            <div class="mt-6 grid md:grid-cols-2 gap-6">
-                <div class="border-l-4 border-apple-blue pl-4">
-                    <p class="italic mb-2">"I love how the game balances competition with cooperation. Forming alliances with other players creates a real sense of community while still maintaining the thrill of competition."</p>
-                    <p class="font-bold">- James L.</p>
-                    <p class="text-sm text-gray-600">Playing since 2019 • 4/5 rating</p>
-                </div>
-                <div class="border-l-4 border-apple-blue pl-4">
-                    <p class="italic mb-2">"The developers keep the game fresh with regular updates and special events. There's always something new to look forward to, which keeps me coming back day after day."</p>
-                    <p class="font-bold">- Emma T.</p>
-                    <p class="text-sm text-gray-600">Playing since 2022 • 4.5/5 rating</p>
-                </div>
-            </div>
-        </section>
-        
-        <section class="game-container p-6 mb-12">
-            <span class="feature-badge">Game Strategy</span>
-            <h2 class="text-2xl font-bold mb-4">Tips & Strategies</h2>
-            <p class="section-description">Master Mob Wars with these proven strategies from experienced players. Whether you're just starting out or looking to optimize your gameplay, these tips will help you build a more powerful criminal empire and climb the ranks faster than your competitors.</p>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                    <h3 class="font-bold text-xl mb-3">For Beginners</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            <span>Focus on completing missions to earn experience and cash</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            <span>Invest in income-generating properties early</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            <span>Join an active family for protection and bonuses</span>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-bold text-xl mb-3">For Advanced Players</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            <span>Optimize your attack and defense stats for PvP combat</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            <span>Form strategic alliances with powerful families</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-apple-blue mr-2 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            <span>Participate in special events to earn rare items</span>
-                        </li>
-                    </ul>
+                <div class="glass-morphism rounded-xl p-6 text-white">
+                    <div class="text-4xl mb-4">📱</div>
+                    <h3 class="text-xl font-bold mb-2">Play Anywhere</h3>
+                    <p>Fully responsive design works perfectly on all devices</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="header py-8 px-4 md:px-8 mt-12">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <h3 class="text-xl font-bold mb-2">FunnyMudpy</h3>
-                    <p>Home to the best online games</p>
-                </div>
-                <div class="flex flex-col md:flex-row md:space-x-12">
-                    <div class="mb-6 md:mb-0">
-                        <h4 class="font-bold mb-2">Quick Links</h4>
-                        <ul class="space-y-1">
-                            <li><a href="#" class="hover:text-gray-300">Home</a></li>
-                            <li><a href="#" class="hover:text-gray-300">Games</a></li>
-                            <li><a href="#" class="hover:text-gray-300">About</a></li>
-                            <li><a href="#" class="hover:text-gray-300">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="font-bold mb-2">Legal</h4>
-                        <ul class="space-y-1">
-                            <li><a href="#" class="hover:text-gray-300">Privacy Policy</a></li>
-                            <li><a href="#" class="hover:text-gray-300">Terms of Service</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p>&copy; 2023 FunnyMudpy.com - All rights reserved</p>
+    <!-- Footer -->
+    <footer class="glass-morphism text-white py-8 px-4 mt-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-4">Join the Fun!</h2>
+            <p class="mb-4">© 2024 Funny Mud Py. Making the world funnier, one fart at a time! 🎮💨</p>
+            <div class="flex justify-center space-x-4 text-sm">
+                <span>🎮 9 Games</span>
+                <span>💨 F Sounds</span>
+                <span>📱 Mobile Ready</span>
+                <span>🆓 Always Free</span>
             </div>
         </div>
     </footer>
 
+    <!-- Game Modals -->
+    <div id="gameModal" class="game-modal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeGame()">×</div>
+            <div id="gameContainer"></div>
+        </div>
+    </div>
+
+    <!-- Audio for fart sounds -->
+    <audio id="fartSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZURE" type="audio/wav">
+    </audio>
+
     <script>
-        // Add any JavaScript functionality here if needed
+        // Sound effects
+        const fartSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZURE');
+
+        function playFart() {
+            fartSound.currentTime = 0;
+            fartSound.play().catch(e => console.log('Audio play failed:', e));
+        }
+
+        // Modal management
+        function openGame(gameType) {
+            playFart();
+            const modal = document.getElementById('gameModal');
+            const container = document.getElementById('gameContainer');
+
+            container.innerHTML = getGameHTML(gameType);
+            modal.classList.add('active');
+
+            if (gameType === '2048') {
+                init2048();
+            } else if (gameType === 'memory') {
+                initMemoryGame();
+            } else if (gameType === 'tictactoe') {
+                initTicTacToe();
+            } else if (gameType === 'whack') {
+                initWhackAMole();
+            }
+        }
+
+        function closeGame() {
+            playFart();
+            const modal = document.getElementById('gameModal');
+            modal.classList.remove('active');
+
+            // Stop any running games
+            if (window.gameInterval) {
+                clearInterval(window.gameInterval);
+            }
+            if (window.gameTimeout) {
+                clearTimeout(window.gameTimeout);
+            }
+        }
+
+        function getGameHTML(gameType) {
+            const games = {
+                '2048': `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">2048 Game</h2>
+                        <p class="mb-4">Use arrow keys to combine tiles and reach 2048!</p>
+                        <div class="mb-4">
+                            <button onclick="reset2048()" class="bg-blue-500 text-white px-4 py-2 rounded-full mr-2">New Game</button>
+                            <span class="font-bold">Score: <span id="score2048">0</span></span>
+                        </div>
+                        <div id="game2048" class="game-2048"></div>
+                    </div>
+                `,
+                'tetris': `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Tetris</h2>
+                        <p class="mb-4">Use arrow keys to move and rotate blocks!</p>
+                        <button onclick="startTetris()" class="bg-green-500 text-white px-4 py-2 rounded-full">Start Game</button>
+                        <div id="tetrisGame" class="tetris-game">
+                            <div class="tetris-grid" id="tetrisGrid"></div>
+                        </div>
+                    </div>
+                `,
+                'snake': `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Snake Game</h2>
+                        <p class="mb-4">Use arrow keys to control the snake!</p>
+                        <button onclick="startSnake()" class="bg-green-500 text-white px-4 py-2 rounded-full">Start Game</button>
+                        <div id="snakeGame" class="snake-game"></div>
+                    </div>
+                `,
+                'memory': `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Memory Match</h2>
+                        <p class="mb-4">Click cards to find matching pairs!</p>
+                        <button onclick="resetMemoryGame()" class="bg-purple-500 text-white px-4 py-2 rounded-full mb-4">New Game</button>
+                        <div id="memoryGame" class="memory-game"></div>
+                    </div>
+                `,
+                'tictactoe': `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Tic Tac Toe</h2>
+                        <p class="mb-4">Get three in a row to win!</p>
+                        <button onclick="resetTicTacToe()" class="bg-red-500 text-white px-4 py-2 rounded-full mb-4">New Game</button>
+                        <div id="ticTacToeGame" class="tic-tac-toe"></div>
+                        <div id="ticTacToeStatus" class="mt-4 text-xl font-bold"></div>
+                    </div>
+                `,
+                'flappy': `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Flappy Bird</h2>
+                        <p class="mb-4">Click to fly and avoid pipes!</p>
+                        <button onclick="startFlappy()" class="bg-yellow-500 text-white px-4 py-2 rounded-full">Start Game</button>
+                        <div id="flappyGame" class="flappy-game"></div>
+                    </div>
+                `,
+                'pong': `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Pong</h2>
+                        <p class="mb-4">Use W/S and Up/Down arrows to move paddles!</p>
+                        <button onclick="startPong()" class="bg-blue-500 text-white px-4 py-2 rounded-full">Start Game</button>
+                        <div id="pongGame" class="pong-game"></div>
+                    </div>
+                `,
+                'dino': `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Dino Jump</h2>
+                        <p class="mb-4">Press Space to jump over cacti!</p>
+                        <button onclick="startDino()" class="bg-green-500 text-white px-4 py-2 rounded-full">Start Game</button>
+                        <div id="dinoGame" class="dino-game"></div>
+                    </div>
+                `,
+                'whack': `
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-4">Whack-a-Mole</h2>
+                        <p class="mb-4">Click the moles when they appear!</p>
+                        <button onclick="resetWhackAMole()" class="bg-purple-500 text-white px-4 py-2 rounded-full mb-4">Start Game</button>
+                        <div id="whackGame" class="whack-game"></div>
+                        <div class="mt-4">Score: <span id="whackScore" class="text-2xl font-bold">0</span></div>
+                    </div>
+                `
+            };
+
+            return games[gameType] || '<p>Game not found!</p>';
+        }
+
+        // 2048 Game Logic
+        let board2048 = [];
+        let score2048 = 0;
+
+        function init2048() {
+            board2048 = Array(4).fill().map(() => Array(4).fill(0));
+            score2048 = 0;
+            addNewTile();
+            addNewTile();
+            render2048();
+        }
+
+        function addNewTile() {
+            const emptyCells = [];
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    if (board2048[i][j] === 0) {
+                        emptyCells.push({row: i, col: j});
+                    }
+                }
+            }
+
+            if (emptyCells.length > 0) {
+                const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                board2048[randomCell.row][randomCell.col] = Math.random() < 0.9 ? 2 : 4;
+            }
+        }
+
+        function render2048() {
+            const gameElement = document.getElementById('game2048');
+            gameElement.innerHTML = '';
+
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    const tile = document.createElement('div');
+                    tile.className = `tile-2048 tile-${board2048[i][j]}`;
+                    tile.textContent = board2048[i][j] || '';
+                    gameElement.appendChild(tile);
+                }
+            }
+
+            document.getElementById('score2048').textContent = score2048;
+        }
+
+        function move2048(direction) {
+            let moved = false;
+            const newBoard = board2048.map(row => [...row]);
+
+            if (direction === 'left' || direction === 'right') {
+                for (let i = 0; i < 4; i++) {
+                    let row = newBoard[i];
+                    if (direction === 'right') row = row.reverse();
+
+                    const filtered = row.filter(cell => cell !== 0);
+                    const merged = [];
+
+                    for (let j = 0; j < filtered.length; j++) {
+                        if (j < filtered.length - 1 && filtered[j] === filtered[j + 1]) {
+                            merged.push(filtered[j] * 2);
+                            score2048 += filtered[j] * 2;
+                            j++;
+                        } else {
+                            merged.push(filtered[j]);
+                        }
+                    }
+
+                    while (merged.length < 4) {
+                        merged.push(0);
+                    }
+
+                    if (direction === 'right') merged.reverse();
+
+                    for (let j = 0; j < 4; j++) {
+                        if (newBoard[i][j] !== merged[j]) moved = true;
+                        newBoard[i][j] = merged[j];
+                    }
+                }
+            } else {
+                for (let j = 0; j < 4; j++) {
+                    let column = [newBoard[0][j], newBoard[1][j], newBoard[2][j], newBoard[3][j]];
+                    if (direction === 'down') column = column.reverse();
+
+                    const filtered = column.filter(cell => cell !== 0);
+                    const merged = [];
+
+                    for (let i = 0; i < filtered.length; i++) {
+                        if (i < filtered.length - 1 && filtered[i] === filtered[i + 1]) {
+                            merged.push(filtered[i] * 2);
+                            score2048 += filtered[i] * 2;
+                            i++;
+                        } else {
+                            merged.push(filtered[i]);
+                        }
+                    }
+
+                    while (merged.length < 4) {
+                        merged.push(0);
+                    }
+
+                    if (direction === 'down') merged.reverse();
+
+                    for (let i = 0; i < 4; i++) {
+                        if (newBoard[i][j] !== merged[i]) moved = true;
+                        newBoard[i][j] = merged[i];
+                    }
+                }
+            }
+
+            if (moved) {
+                board2048 = newBoard;
+                addNewTile();
+                render2048();
+                playFart();
+            }
+        }
+
+        function reset2048() {
+            playFart();
+            init2048();
+        }
+
+        // Keyboard controls for 2048
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('gameModal').classList.contains('active')) return;
+            if (!document.getElementById('game2048')) return;
+
+            const keyMap = {
+                'ArrowLeft': 'left',
+                'ArrowRight': 'right',
+                'ArrowUp': 'up',
+                'ArrowDown': 'down'
+            };
+
+            if (keyMap[e.key]) {
+                e.preventDefault();
+                move2048(keyMap[e.key]);
+            }
+        });
+
+        // Memory Game Logic
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        const emojis = ['🎮', '🎯', '🎪', '🎨', '🎭', '🎸', '🎺', '🎲'];
+
+        function initMemoryGame() {
+            const gameElement = document.getElementById('memoryGame');
+            gameElement.innerHTML = '';
+
+            memoryCards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+            flippedCards = [];
+            matchedPairs = 0;
+
+            memoryCards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.textContent = '?';
+                card.onclick = () => flipCard(card);
+                gameElement.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            if (flippedCards.length >= 2) return;
+            if (card.classList.contains('flipped')) return;
+
+            playFart();
+            card.classList.add('flipped');
+            card.textContent = card.dataset.emoji;
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                setTimeout(() => checkMatch(), 1000);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                playFart();
+
+                if (matchedPairs === emojis.length) {
+                    setTimeout(() => alert('Congratulations! You won!'), 500);
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.textContent = '?';
+                card2.textContent = '?';
+            }
+
+            flippedCards = [];
+        }
+
+        function resetMemoryGame() {
+            playFart();
+            initMemoryGame();
+        }
+
+        // Tic Tac Toe Logic
+        let ticTacToeBoard = Array(9).fill('');
+        let currentPlayer = 'X';
+        let gameActive = true;
+
+        function initTicTacToe() {
+            const gameElement = document.getElementById('ticTacToeGame');
+            gameElement.innerHTML = '';
+
+            ticTacToeBoard = Array(9).fill('');
+            currentPlayer = 'X';
+            gameActive = true;
+
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'tic-tac-toe-cell';
+                cell.onclick = () => makeMove(i);
+                gameElement.appendChild(cell);
+            }
+
+            document.getElementById('ticTacToeStatus').textContent = '';
+        }
+
+        function makeMove(index) {
+            if (!gameActive || ticTacToeBoard[index]) return;
+
+            playFart();
+            ticTacToeBoard[index] = currentPlayer;
+            renderTicTacToe();
+
+            if (checkWin()) {
+                document.getElementById('ticTacToeStatus').textContent = `${currentPlayer} wins!`;
+                gameActive = false;
+                playFart();
+            } else if (ticTacToeBoard.every(cell => cell)) {
+                document.getElementById('ticTacToeStatus').textContent = 'Draw!';
+                gameActive = false;
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+
+        function renderTicTacToe() {
+            const cells = document.querySelectorAll('.tic-tac-toe-cell');
+            cells.forEach((cell, index) => {
+                cell.textContent = ticTacToeBoard[index];
+                if (ticTacToeBoard[index] === 'X') {
+                    cell.style.color = '#007AFF';
+                } else if (ticTacToeBoard[index] === 'O') {
+                    cell.style.color = '#FF3B30';
+                }
+            });
+        }
+
+        function checkWin() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6] // diagonals
+            ];
+
+            return winPatterns.some(pattern => {
+                const [a, b, c] = pattern;
+                return ticTacToeBoard[a] &&
+                       ticTacToeBoard[a] === ticTacToeBoard[b] &&
+                       ticTacToeBoard[a] === ticTacToeBoard[c];
+            });
+        }
+
+        function resetTicTacToe() {
+            playFart();
+            initTicTacToe();
+        }
+
+        // Whack-a-Mole Logic
+        let whackScore = 0;
+        let activeMole = null;
+        let moleTimeout;
+
+        function initWhackAMole() {
+            const gameElement = document.getElementById('whackGame');
+            gameElement.innerHTML = '';
+            whackScore = 0;
+            document.getElementById('whackScore').textContent = whackScore;
+
+            for (let i = 0; i < 9; i++) {
+                const hole = document.createElement('div');
+                hole.className = 'whack-hole';
+                hole.onclick = () => whackMole(i);
+
+                const mole = document.createElement('div');
+                mole.className = 'whack-mole';
+                mole.id = `mole-${i}`;
+
+                hole.appendChild(mole);
+                gameElement.appendChild(hole);
+            }
+
+            startMoleGame();
+        }
+
+        function startMoleGame() {
+            showRandomMole();
+        }
+
+        function showRandomMole() {
+            if (activeMole !== null) {
+                document.getElementById(`mole-${activeMole}`).classList.remove('active');
+            }
+
+            activeMole = Math.floor(Math.random() * 9);
+            document.getElementById(`mole-${activeMole}`).classList.add('active');
+
+            moleTimeout = setTimeout(() => {
+                document.getElementById(`mole-${activeMole}`).classList.remove('active');
+                showRandomMole();
+            }, 1500);
+        }
+
+        function whackMole(index) {
+            if (index === activeMole) {
+                playFart();
+                whackScore++;
+                document.getElementById('whackScore').textContent = whackScore;
+                document.getElementById(`mole-${index}`).classList.remove('active');
+                clearTimeout(moleTimeout);
+                showRandomMole();
+            }
+        }
+
+        function resetWhackAMole() {
+            playFart();
+            clearTimeout(moleTimeout);
+            initWhackAMole();
+        }
+
+        // ===== TETRIS GAME =====
+        let tetrisGrid = [];
+        let tetrisCurrentPiece = null;
+        let tetrisScore = 0;
+        let tetrisGameLoop = null;
+        let tetrisDropSpeed = 800;
+        const TETRIS_ROWS = 20;
+        const TETRIS_COLS = 10;
+        const TETRIS_PIECES = {
+            I: { shape: [[1,1,1,1]], color: '#00f0f0' },
+            O: { shape: [[1,1],[1,1]], color: '#f0f000' },
+            T: { shape: [[0,1,0],[1,1,1]], color: '#a000f0' },
+            S: { shape: [[0,1,1],[1,1,0]], color: '#00f000' },
+            Z: { shape: [[1,1,0],[0,1,1]], color: '#f00000' },
+            J: { shape: [[1,0,0],[1,1,1]], color: '#0000f0' },
+            L: { shape: [[0,0,1],[1,1,1]], color: '#f0a000' }
+        };
+
+        function initTetris() {
+            tetrisGrid = Array(TETRIS_ROWS).fill().map(() => Array(TETRIS_COLS).fill(0));
+            tetrisScore = 0;
+            tetrisDropSpeed = 800;
+            renderTetris();
+        }
+
+        function createTetrisPiece() {
+            const pieces = Object.keys(TETRIS_PIECES);
+            const randomPiece = pieces[Math.floor(Math.random() * pieces.length)];
+            return {
+                type: randomPiece,
+                shape: TETRIS_PIECES[randomPiece].shape,
+                color: TETRIS_PIECES[randomPiece].color,
+                x: Math.floor(TETRIS_COLS / 2) - 1,
+                y: 0
+            };
+        }
+
+        function renderTetris() {
+            const gridElement = document.getElementById('tetrisGrid');
+            if (!gridElement) return;
+
+            gridElement.innerHTML = '';
+
+            for (let row = 0; row < TETRIS_ROWS; row++) {
+                for (let col = 0; col < TETRIS_COLS; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'tetris-block';
+
+                    if (tetrisGrid[row][col]) {
+                        cell.style.backgroundColor = tetrisGrid[row][col];
+                    } else {
+                        cell.style.backgroundColor = '#444';
+                    }
+
+                    gridElement.appendChild(cell);
+                }
+            }
+
+            // Render current piece
+            if (tetrisCurrentPiece) {
+                for (let row = 0; row < tetrisCurrentPiece.shape.length; row++) {
+                    for (let col = 0; col < tetrisCurrentPiece.shape[row].length; col++) {
+                        if (tetrisCurrentPiece.shape[row][col]) {
+                            const actualRow = tetrisCurrentPiece.y + row;
+                            const actualCol = tetrisCurrentPiece.x + col;
+                            if (actualRow >= 0 && actualRow < TETRIS_ROWS && actualCol >= 0 && actualCol < TETRIS_COLS) {
+                                const index = actualRow * TETRIS_COLS + actualCol;
+                                gridElement.children[index].style.backgroundColor = tetrisCurrentPiece.color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function isValidTetrisMove(piece, dx = 0, dy = 0) {
+            for (let row = 0; row < piece.shape.length; row++) {
+                for (let col = 0; col < piece.shape[row].length; col++) {
+                    if (piece.shape[row][col]) {
+                        const newX = piece.x + col + dx;
+                        const newY = piece.y + row + dy;
+
+                        if (newX < 0 || newX >= TETRIS_COLS || newY >= TETRIS_ROWS) {
+                            return false;
+                        }
+
+                        if (newY >= 0 && tetrisGrid[newY][newX]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        function rotateTetrisPiece() {
+            const rotated = tetrisCurrentPiece.shape[0].map((_, index) =>
+                tetrisCurrentPiece.shape.map(row => row[index]).reverse()
+            );
+
+            const originalShape = tetrisCurrentPiece.shape;
+            tetrisCurrentPiece.shape = rotated;
+
+            if (!isValidTetrisMove(tetrisCurrentPiece)) {
+                tetrisCurrentPiece.shape = originalShape;
+            }
+        }
+
+        function lockTetrisPiece() {
+            for (let row = 0; row < tetrisCurrentPiece.shape.length; row++) {
+                for (let col = 0; col < tetrisCurrentPiece.shape[row].length; col++) {
+                    if (tetrisCurrentPiece.shape[row][col]) {
+                        const y = tetrisCurrentPiece.y + row;
+                        const x = tetrisCurrentPiece.x + col;
+                        if (y >= 0) {
+                            tetrisGrid[y][x] = tetrisCurrentPiece.color;
+                        }
+                    }
+                }
+            }
+
+            clearTetrisLines();
+            tetrisCurrentPiece = createTetrisPiece();
+
+            if (!isValidTetrisMove(tetrisCurrentPiece)) {
+                gameOverTetris();
+            }
+        }
+
+        function clearTetrisLines() {
+            let linesCleared = 0;
+
+            for (let row = TETRIS_ROWS - 1; row >= 0; row--) {
+                if (tetrisGrid[row].every(cell => cell !== 0)) {
+                    tetrisGrid.splice(row, 1);
+                    tetrisGrid.unshift(Array(TETRIS_COLS).fill(0));
+                    linesCleared++;
+                    row++;
+                }
+            }
+
+            if (linesCleared > 0) {
+                tetrisScore += linesCleared * 100 * linesCleared;
+                tetrisDropSpeed = Math.max(100, 800 - tetrisScore / 100);
+                playFart();
+            }
+        }
+
+        function dropTetrisPiece() {
+            if (isValidTetrisMove(tetrisCurrentPiece, 0, 1)) {
+                tetrisCurrentPiece.y++;
+            } else {
+                lockTetrisPiece();
+            }
+            renderTetris();
+        }
+
+        function gameOverTetris() {
+            clearInterval(tetrisGameLoop);
+            alert(`Game Over! Score: ${tetrisScore}`);
+        }
+
+        function startTetris() {
+            playFart();
+            initTetris();
+            tetrisCurrentPiece = createTetrisPiece();
+
+            clearInterval(tetrisGameLoop);
+            tetrisGameLoop = setInterval(dropTetrisPiece, tetrisDropSpeed);
+
+            document.addEventListener('keydown', handleTetrisControls);
+        }
+
+        function handleTetrisControls(e) {
+            if (!tetrisGameLoop) return;
+
+            switch(e.key) {
+                case 'ArrowLeft':
+                    if (isValidTetrisMove(tetrisCurrentPiece, -1, 0)) {
+                        tetrisCurrentPiece.x--;
+                        renderTetris();
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (isValidTetrisMove(tetrisCurrentPiece, 1, 0)) {
+                        tetrisCurrentPiece.x++;
+                        renderTetris();
+                    }
+                    break;
+                case 'ArrowDown':
+                    dropTetrisPiece();
+                    break;
+                case 'ArrowUp':
+                case ' ':
+                    rotateTetrisPiece();
+                    renderTetris();
+                    break;
+            }
+        }
+
+        // ===== SNAKE GAME =====
+        let snakeGame = {
+            board: [],
+            snake: [],
+            food: null,
+            direction: 'right',
+            score: 0,
+            gameLoop: null,
+            boardSize: 20
+        };
+
+        function initSnake() {
+            const size = snakeGame.boardSize;
+            snakeGame.board = Array(size).fill().map(() => Array(size).fill(0));
+            snakeGame.snake = [
+                {x: Math.floor(size/2), y: Math.floor(size/2)},
+                {x: Math.floor(size/2) - 1, y: Math.floor(size/2)},
+                {x: Math.floor(size/2) - 2, y: Math.floor(size/2)}
+            ];
+            snakeGame.direction = 'right';
+            snakeGame.score = 0;
+            placeSnakeFood();
+            renderSnake();
+        }
+
+        function placeSnakeFood() {
+            const size = snakeGame.boardSize;
+            let food;
+            do {
+                food = {
+                    x: Math.floor(Math.random() * size),
+                    y: Math.floor(Math.random() * size)
+                };
+            } while (snakeGame.snake.some(segment => segment.x === food.x && segment.y === food.y));
+
+            snakeGame.food = food;
+        }
+
+        function renderSnake() {
+            const gameElement = document.getElementById('snakeGame');
+            if (!gameElement) return;
+
+            gameElement.innerHTML = '';
+            const cellSize = 20;
+
+            // Render snake
+            snakeGame.snake.forEach((segment, index) => {
+                const segmentEl = document.createElement('div');
+                segmentEl.className = 'snake-cell';
+                segmentEl.style.left = segment.x * cellSize + 'px';
+                segmentEl.style.top = segment.y * cellSize + 'px';
+                segmentEl.style.width = cellSize + 'px';
+                segmentEl.style.height = cellSize + 'px';
+                segmentEl.style.backgroundColor = index === 0 ? '#4CAF50' : '#8BC34A';
+                segmentEl.style.border = '1px solid #2E7D32';
+                gameElement.appendChild(segmentEl);
+            });
+
+            // Render food
+            if (snakeGame.food) {
+                const foodEl = document.createElement('div');
+                foodEl.className = 'snake-cell';
+                foodEl.style.left = snakeGame.food.x * cellSize + 'px';
+                foodEl.style.top = snakeGame.food.y * cellSize + 'px';
+                foodEl.style.width = cellSize + 'px';
+                foodEl.style.height = cellSize + 'px';
+                foodEl.style.backgroundColor = '#FF5722';
+                foodEl.style.borderRadius = '50%';
+                gameElement.appendChild(foodEl);
+            }
+        }
+
+        function moveSnake() {
+            const head = {...snakeGame.snake[0]};
+
+            switch(snakeGame.direction) {
+                case 'up': head.y--; break;
+                case 'down': head.y++; break;
+                case 'left': head.x--; break;
+                case 'right': head.x++; break;
+            }
+
+            // Check walls
+            const size = snakeGame.boardSize;
+            if (head.x < 0 || head.x >= size || head.y < 0 || head.y >= size) {
+                gameOverSnake();
+                return;
+            }
+
+            // Check self collision
+            if (snakeGame.snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                gameOverSnake();
+                return;
+            }
+
+            snakeGame.snake.unshift(head);
+
+            // Check food
+            if (snakeGame.food && head.x === snakeGame.food.x && head.y === snakeGame.food.y) {
+                snakeGame.score += 10;
+                placeSnakeFood();
+                playFart();
+            } else {
+                snakeGame.snake.pop();
+            }
+
+            renderSnake();
+        }
+
+        function gameOverSnake() {
+            clearInterval(snakeGame.gameLoop);
+            snakeGame.gameLoop = null;
+            alert(`Game Over! Score: ${snakeGame.score}`);
+        }
+
+        function startSnake() {
+            playFart();
+            initSnake();
+
+            clearInterval(snakeGame.gameLoop);
+            snakeGame.gameLoop = setInterval(moveSnake, 150);
+
+            document.addEventListener('keydown', handleSnakeControls);
+        }
+
+        function handleSnakeControls(e) {
+            if (!snakeGame.gameLoop) return;
+
+            const newDirection = {
+                'ArrowUp': 'up',
+                'ArrowDown': 'down',
+                'ArrowLeft': 'left',
+                'ArrowRight': 'right'
+            }[e.key];
+
+            if (!newDirection) return;
+
+            const opposites = {
+                'up': 'down',
+                'down': 'up',
+                'left': 'right',
+                'right': 'left'
+            };
+
+            if (opposites[snakeGame.direction] !== newDirection) {
+                snakeGame.direction = newDirection;
+            }
+        }
+
+        // ===== FLAPPY BIRD GAME =====
+        let flappyGame = {
+            bird: { y: 250, velocity: 0 },
+            pipes: [],
+            score: 0,
+            gameLoop: null,
+            gravity: 0.5,
+            jumpPower: -8,
+            pipeGap: 150,
+            pipeSpeed: 2
+        };
+
+        function initFlappy() {
+            const gameElement = document.getElementById('flappyGame');
+            if (!gameElement) return;
+
+            gameElement.innerHTML = '';
+
+            flappyGame.bird = { y: 250, velocity: 0 };
+            flappyGame.pipes = [];
+            flappyGame.score = 0;
+
+            // Create bird
+            const bird = document.createElement('div');
+            bird.className = 'flappy-bird';
+            bird.id = 'flappyBird';
+            gameElement.appendChild(bird);
+
+            renderFlappy();
+        }
+
+        function renderFlappy() {
+            const bird = document.getElementById('flappyBird');
+            if (!bird) return;
+
+            const gameElement = document.getElementById('flappyGame');
+            bird.style.top = flappyGame.bird.y + 'px';
+
+            // Clear old pipes
+            const oldPipes = gameElement.querySelectorAll('.flappy-pipe');
+            oldPipes.forEach(pipe => pipe.remove());
+
+            // Create and render pipes
+            flappyGame.pipes.forEach(pipe => {
+                const topPipe = document.createElement('div');
+                topPipe.className = 'flappy-pipe';
+                topPipe.style.left = pipe.x + 'px';
+                topPipe.style.top = '0px';
+                topPipe.style.width = '60px';
+                topPipe.style.height = pipe.topHeight + 'px';
+
+                const bottomPipe = document.createElement('div');
+                bottomPipe.className = 'flappy-pipe';
+                bottomPipe.style.left = pipe.x + 'px';
+                bottomPipe.style.bottom = '0px';
+                bottomPipe.style.width = '60px';
+                bottomPipe.style.height = pipe.bottomHeight + 'px';
+
+                gameElement.appendChild(topPipe);
+                gameElement.appendChild(bottomPipe);
+            });
+        }
+
+        function updateFlappy() {
+            // Update bird
+            flappyGame.bird.velocity += flappyGame.gravity;
+            flappyGame.bird.y += flappyGame.bird.velocity;
+
+            // Check boundaries
+            if (flappyGame.bird.y < 0 || flappyGame.bird.y > 576) {
+                gameOverFlappy();
+                return;
+            }
+
+            // Update pipes
+            flappyGame.pipes = flappyGame.pipes.filter(pipe => pipe.x > -60);
+
+            flappyGame.pipes.forEach(pipe => {
+                pipe.x -= flappyGame.pipeSpeed;
+
+                // Check collision
+                const birdRect = {
+                    left: 100,
+                    right: 134,
+                    top: flappyGame.bird.y,
+                    bottom: flappyGame.bird.y + 24
+                };
+
+                const pipeRect = {
+                    left: pipe.x,
+                    right: pipe.x + 60
+                };
+
+                if (birdRect.right > pipeRect.left && birdRect.left < pipeRect.right) {
+                    if (flappyGame.bird.y < pipe.topHeight || flappyGame.bird.y + 24 > 600 - pipe.bottomHeight) {
+                        gameOverFlappy();
+                        return;
+                    }
+                }
+
+                // Score
+                if (pipe.x === 40) {
+                    flappyGame.score++;
+                    playFart();
+                }
+            });
+
+            // Add new pipes
+            if (flappyGame.pipes.length === 0 || flappyGame.pipes[flappyGame.pipes.length - 1].x < 300) {
+                const minHeight = 50;
+                const maxHeight = 250;
+                const topHeight = Math.floor(Math.random() * (maxHeight - minHeight)) + minHeight;
+
+                flappyGame.pipes.push({
+                    x: 400,
+                    topHeight: topHeight,
+                    bottomHeight: 600 - topHeight - flappyGame.pipeGap
+                });
+            }
+
+            renderFlappy();
+        }
+
+        function jumpFlappy() {
+            if (!flappyGame.gameLoop) return;
+            flappyGame.bird.velocity = flappyGame.jumpPower;
+            playFart();
+        }
+
+        function gameOverFlappy() {
+            clearInterval(flappyGame.gameLoop);
+            flappyGame.gameLoop = null;
+            alert(`Game Over! Score: ${flappyGame.score}`);
+        }
+
+        function startFlappy() {
+            playFart();
+            initFlappy();
+
+            clearInterval(flappyGame.gameLoop);
+            flappyGame.gameLoop = setInterval(updateFlappy, 20);
+
+            const gameElement = document.getElementById('flappyGame');
+            gameElement.addEventListener('click', jumpFlappy);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === ' ' && flappyGame.gameLoop) {
+                    e.preventDefault();
+                    jumpFlappy();
+                }
+            });
+        }
+
+        // ===== PONG GAME =====
+        let pongGame = {
+            leftPaddle: { y: 160 },
+            rightPaddle: { y: 160 },
+            ball: { x: 292, y: 192, vx: 4, vy: 3 },
+            leftScore: 0,
+            rightScore: 0,
+            gameLoop: null,
+            paddleSpeed: 6,
+            ballSpeed: 4
+        };
+
+        function initPong() {
+            const gameElement = document.getElementById('pongGame');
+            if (!gameElement) return;
+
+            gameElement.innerHTML = '';
+
+            pongGame.leftPaddle = { y: 160 };
+            pongGame.rightPaddle = { y: 160 };
+            pongGame.ball = { x: 292, y: 192, vx: 4, vy: 3 };
+            pongGame.leftScore = 0;
+            pongGame.rightScore = 0;
+
+            // Create paddles and ball
+            const leftPaddle = document.createElement('div');
+            leftPaddle.className = 'pong-paddle';
+            leftPaddle.style.left = '20px';
+            leftPaddle.style.top = '160px';
+            leftPaddle.id = 'leftPaddle';
+
+            const rightPaddle = document.createElement('div');
+            rightPaddle.className = 'pong-paddle';
+            rightPaddle.style.right = '20px';
+            rightPaddle.style.top = '160px';
+            rightPaddle.id = 'rightPaddle';
+
+            const ball = document.createElement('div');
+            ball.className = 'pong-ball';
+            ball.id = 'pongBall';
+
+            gameElement.appendChild(leftPaddle);
+            gameElement.appendChild(rightPaddle);
+            gameElement.appendChild(ball);
+
+            // Add score display
+            const scoreDisplay = document.createElement('div');
+            scoreDisplay.style.position = 'absolute';
+            scoreDisplay.style.top = '20px';
+            scoreDisplay.style.left = '50%';
+            scoreDisplay.style.transform = 'translateX(-50%)';
+            scoreDisplay.style.color = 'white';
+            scoreDisplay.style.fontSize = '24px';
+            scoreDisplay.style.fontWeight = 'bold';
+            scoreDisplay.id = 'pongScore';
+            scoreDisplay.textContent = '0 - 0';
+            gameElement.appendChild(scoreDisplay);
+
+            renderPong();
+        }
+
+        function renderPong() {
+            const leftPaddle = document.getElementById('leftPaddle');
+            const rightPaddle = document.getElementById('rightPaddle');
+            const ball = document.getElementById('pongBall');
+            const scoreDisplay = document.getElementById('pongScore');
+
+            if (leftPaddle) leftPaddle.style.top = pongGame.leftPaddle.y + 'px';
+            if (rightPaddle) rightPaddle.style.top = pongGame.rightPaddle.y + 'px';
+            if (ball) {
+                ball.style.left = pongGame.ball.x + 'px';
+                ball.style.top = pongGame.ball.y + 'px';
+            }
+            if (scoreDisplay) scoreDisplay.textContent = `${pongGame.leftScore} - ${pongGame.rightScore}`;
+        }
+
+        function updatePong() {
+            // Update ball position
+            pongGame.ball.x += pongGame.ball.vx;
+            pongGame.ball.y += pongGame.ball.vy;
+
+            // Ball collision with top/bottom
+            if (pongGame.ball.y <= 0 || pongGame.ball.y >= 385) {
+                pongGame.ball.vy = -pongGame.ball.vy;
+            }
+
+            // Ball collision with paddles
+            if (pongGame.ball.x <= 35 && pongGame.ball.x >= 20 &&
+                pongGame.ball.y >= pongGame.leftPaddle.y &&
+                pongGame.ball.y <= pongGame.leftPaddle.y + 80) {
+                pongGame.ball.vx = Math.abs(pongGame.ball.vx);
+                pongGame.ball.vy += (Math.random() - 0.5) * 2;
+                playFart();
+            }
+
+            if (pongGame.ball.x >= 545 && pongGame.ball.x <= 560 &&
+                pongGame.ball.y >= pongGame.rightPaddle.y &&
+                pongGame.ball.y <= pongGame.rightPaddle.y + 80) {
+                pongGame.ball.vx = -Math.abs(pongGame.ball.vx);
+                pongGame.ball.vy += (Math.random() - 0.5) * 2;
+                playFart();
+            }
+
+            // Score
+            if (pongGame.ball.x < 0) {
+                pongGame.rightScore++;
+                resetPongBall();
+            } else if (pongGame.ball.x > 585) {
+                pongGame.leftScore++;
+                resetPongBall();
+            }
+
+            renderPong();
+        }
+
+        function resetPongBall() {
+            pongGame.ball = { x: 292, y: 192, vx: (Math.random() > 0.5 ? 1 : -1) * 4, vy: (Math.random() - 0.5) * 6 };
+            playFart();
+        }
+
+        function movePongLeft(direction) {
+            pongGame.leftPaddle.y = Math.max(0, Math.min(320, pongGame.leftPaddle.y + direction * pongGame.paddleSpeed));
+        }
+
+        function movePongRight(direction) {
+            pongGame.rightPaddle.y = Math.max(0, Math.min(320, pongGame.rightPaddle.y + direction * pongGame.paddleSpeed));
+        }
+
+        function startPong() {
+            playFart();
+            initPong();
+
+            clearInterval(pongGame.gameLoop);
+            pongGame.gameLoop = setInterval(updatePong, 16);
+
+            document.addEventListener('keydown', handlePongControls);
+        }
+
+        function handlePongControls(e) {
+            if (!pongGame.gameLoop) return;
+
+            switch(e.key) {
+                case 'w':
+                case 'W':
+                    movePongLeft(-1);
+                    break;
+                case 's':
+                case 'S':
+                    movePongLeft(1);
+                    break;
+                case 'ArrowUp':
+                    movePongRight(-1);
+                    break;
+                case 'ArrowDown':
+                    movePongRight(1);
+                    break;
+            }
+        }
+
+        // ===== DINO JUMP GAME =====
+        let dinoGame = {
+            dino: { y: 0, jumping: false },
+            cacti: [],
+            score: 0,
+            gameLoop: null,
+            gameSpeed: 6,
+            gravity: 0.8,
+            jumpPower: -15
+        };
+
+        function initDino() {
+            const gameElement = document.getElementById('dinoGame');
+            if (!gameElement) return;
+
+            gameElement.innerHTML = '';
+
+            dinoGame.dino = { y: 0, jumping: false };
+            dinoGame.cacti = [];
+            dinoGame.score = 0;
+            dinoGame.gameSpeed = 6;
+
+            // Create dino
+            const dino = document.createElement('div');
+            dino.className = 'dino';
+            dino.id = 'gameDino';
+            gameElement.appendChild(dino);
+
+            renderDino();
+        }
+
+        function renderDino() {
+            const dino = document.getElementById('gameDino');
+            if (!dino) return;
+
+            const gameElement = document.getElementById('dinoGame');
+            dino.style.bottom = dinoGame.dino.y + 'px';
+
+            // Clear old cacti
+            const oldCacti = gameElement.querySelectorAll('.dino-cactus');
+            oldCacti.forEach(cactus => cactus.remove());
+
+            // Render cacti
+            dinoGame.cacti.forEach(cactus => {
+                const cactusEl = document.createElement('div');
+                cactusEl.className = 'dino-cactus';
+                cactusEl.style.left = cactus.x + 'px';
+                gameElement.appendChild(cactusEl);
+            });
+
+            // Update score display
+            let scoreDisplay = document.getElementById('dinoScore');
+            if (!scoreDisplay) {
+                scoreDisplay = document.createElement('div');
+                scoreDisplay.id = 'dinoScore';
+                scoreDisplay.style.position = 'absolute';
+                scoreDisplay.style.top = '20px';
+                scoreDisplay.style.right = '20px';
+                scoreDisplay.style.color = '#333';
+                scoreDisplay.style.fontSize = '18px';
+                scoreDisplay.style.fontWeight = 'bold';
+                gameElement.appendChild(scoreDisplay);
+            }
+            scoreDisplay.textContent = `Score: ${Math.floor(dinoGame.score)}`;
+        }
+
+        function updateDino() {
+            // Update dino physics
+            if (dinoGame.dino.jumping) {
+                dinoGame.dino.y += dinoGame.dino.velocity || 0;
+                dinoGame.dino.velocity = (dinoGame.dino.velocity || 0) + dinoGame.gravity;
+
+                if (dinoGame.dino.y <= 0) {
+                    dinoGame.dino.y = 0;
+                    dinoGame.dino.jumping = false;
+                    dinoGame.dino.velocity = 0;
+                }
+            }
+
+            // Update cacti
+            dinoGame.cacti = dinoGame.cacti.filter(cactus => cactus.x > -40);
+
+            dinoGame.cacti.forEach(cactus => {
+                cactus.x -= dinoGame.gameSpeed;
+
+                // Check collision
+                const dinoRect = {
+                    left: 50,
+                    right: 90,
+                    bottom: dinoGame.dino.y,
+                    top: dinoGame.dino.y + 50
+                };
+
+                const cactusRect = {
+                    left: cactus.x,
+                    right: cactus.x + 30,
+                    top: 0,
+                    bottom: 40
+                };
+
+                if (dinoRect.right > cactusRect.left && dinoRect.left < cactusRect.right &&
+                    dinoRect.top > cactusRect.top && dinoRect.bottom < cactusRect.bottom) {
+                    gameOverDino();
+                    return;
+                }
+            });
+
+            // Add new cacti
+            if (dinoGame.cacti.length === 0 || dinoGame.cacti[dinoGame.cacti.length - 1].x < 400) {
+                if (Math.random() < 0.02) {
+                    dinoGame.cacti.push({
+                        x: 600,
+                        type: Math.random() > 0.5 ? 'small' : 'large'
+                    });
+                }
+            }
+
+            // Update score and speed
+            dinoGame.score += 0.1;
+            dinoGame.gameSpeed = 6 + dinoGame.score / 100;
+
+            renderDino();
+        }
+
+        function jumpDino() {
+            if (!dinoGame.gameLoop || dinoGame.dino.jumping) return;
+
+            dinoGame.dino.jumping = true;
+            dinoGame.dino.velocity = dinoGame.jumpPower;
+            playFart();
+        }
+
+        function gameOverDino() {
+            clearInterval(dinoGame.gameLoop);
+            dinoGame.gameLoop = null;
+            alert(`Game Over! Score: ${Math.floor(dinoGame.score)}`);
+        }
+
+        function startDino() {
+            playFart();
+            initDino();
+
+            clearInterval(dinoGame.gameLoop);
+            dinoGame.gameLoop = setInterval(updateDino, 20);
+
+            document.addEventListener('keydown', handleDinoControls);
+            document.getElementById('dinoGame').addEventListener('click', jumpDino);
+        }
+
+        function handleDinoControls(e) {
+            if (!dinoGame.gameLoop) return;
+
+            if (e.key === ' ' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                jumpDino();
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add click sound to all game cards
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.addEventListener('click', playFart);
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('gameModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closeGame();
+            }
+        });
     </script>
     <div style="display: none;">
         <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-173ZDXSH2M"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-173ZDXSH2M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-173ZDXSH2M');
+      gtag('config', 'G-173ZDXSH2M');
 </script>
-    </div>
 </body>
-</html> 
+</html>
